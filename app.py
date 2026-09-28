@@ -32,6 +32,14 @@ st.markdown("""
         text-align: center;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
+    .policy-box {
+        background-color: #EFF6FF;
+        border-left: 4px solid #3B82F6;
+        padding: 12px 15px;
+        border-radius: 4px;
+        margin-top: 15px;
+        font-size: 14px;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -79,6 +87,13 @@ def get_initial_hotels():
         # --- TP. HỒ CHÍ MINH ---
         {"Mã HS": "H034", "Tên Khách Sạn": "The Reverie Saigon", "Địa điểm": "TP. Hồ Chí Minh", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 7500000}
     ]
+
+# Dữ liệu vé máy bay tham chiếu (Khứ hồi)
+FLIGHT_RATES = {
+    "Vietjet Air": {"Phổ thông": 1800000, "Thương gia": 4500000},
+    "Vietnam Airlines": {"Phổ thông": 2800000, "Thương gia": 6500000},
+    "Bamboo Airways": {"Phổ thông": 2200000, "Thương gia": 5200000}
+}
 
 # Dữ liệu lịch trình mẫu cho Chatbot tư vấn
 ITINERARY_DATABASE = {
@@ -134,8 +149,8 @@ if 'df_hotels' not in st.session_state:
 
 if 'df_bookings' not in st.session_state:
     st.session_state.df_bookings = pd.DataFrame([
-        {"Mã Đơn": "BK-1001", "Tên Khách": "Anh Minh", "SĐT": "0901234567", "Điểm đến": "Phú Quốc", "Số Khách": 5, "Ngày/Đêm": "4N3Đ", "Khách sạn": "Vinpearl Discovery VIP (5 Sao VIP)", "Tổng Tiền": 52500000, "Trạng thái": "Chờ Giám đốc duyệt", "Ngày đặt": "2026-09-28"},
-        {"Mã Đơn": "BK-1002", "Tên Khách": "Chị Hoa (Tập đoàn FPT)", "SĐT": "0912345678", "Điểm đến": "Sapa", "Số Khách": 12, "Ngày/Đêm": "3N2Đ", "Khách sạn": "Hôtel de la Coupole (5 Sao VIP)", "Tổng Tiền": 118000000, "Trạng thái": "Đã chốt & Cọc", "Ngày đặt": "2026-09-27"}
+        {"Mã Đơn": "BK-1001", "Tên Khách": "Anh Minh", "SĐT": "0901234567", "Điểm đến": "Phú Quốc", "Số Khách": "2 NL, 1 TE(5-12t)", "Thời gian đi": "Tháng 6/2026 (Cao điểm)", "Ngày/Đêm": "4N3Đ", "Khách sạn": "Vinpearl Discovery VIP (5 Sao VIP)", "Bay": "Vietnam Airlines (Phổ thông)", "Tổng Tiền": 48500000, "Trạng thái": "Chờ Giám đốc duyệt", "Ngày đặt": "2026-09-28"},
+        {"Mã Đơn": "BK-1002", "Tên Khách": "Chị Hoa (Tập đoàn FPT)", "SĐT": "0912345678", "Điểm đến": "Sapa", "Số Khách": "10 NL, 2 TE(<5t)", "Thời gian đi": "Tháng 10/2026 (Thấp điểm)", "Ngày/Đêm": "3N2Đ", "Khách sạn": "Hôtel de la Coupole (5 Sao VIP)", "Bay": "Không vé bay", "Tổng Tiền": 118000000, "Trạng thái": "Đã chốt & Cọc", "Ngày đặt": "2026-09-27"}
     ])
 
 if 'df_tours' not in st.session_state:
@@ -144,7 +159,6 @@ if 'df_tours' not in st.session_state:
         {"ID": "T002", "Tên Tour": "Đà Nẵng - Hội An - Bà Nà 4N3Đ", "Loại": "Nội địa", "Khởi hành": "2026-10-10", "Trạng thái": "Mở bán", "Số chỗ": 30, "Đã đặt": 18, "Doanh thu": 104400000, "Chi phí": 72000000}
     ])
 
-# Khởi tạo dữ liệu Quản lý Nhân sự & HDV
 if 'df_staff' not in st.session_state:
     st.session_state.df_staff = pd.DataFrame([
         {"Mã NV": "HDV-01", "Họ và Tên": "Nguyễn Văn Tuấn", "Chức danh": "HDV Quốc tế", "SĐT": "0908112233", "Thẻ HDV": "Nội địa & Quốc tế", "Tuyến đường chính": "Sapa, Hà Nội, Hạ Long", "Ngoại ngữ": "Tiếng Anh, Tiếng Trung", "Trạng thái": "Sẵn sàng nhận tour"},
@@ -153,7 +167,6 @@ if 'df_staff' not in st.session_state:
         {"Mã NV": "DH-01", "Họ và Tên": "Phạm Quốc Bảo", "Chức danh": "Chuyên viên Điều hành Tour", "SĐT": "0977889900", "Thẻ HDV": "Không", "Tuyến đường chính": "Toàn quốc", "Ngoại ngữ": "Tiếng Anh", "Trạng thái": "Đang làm việc"}
     ])
 
-# Khởi tạo lịch sử Chatbot
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
         {"role": "assistant", "content": "Xin chào! Tôi là Trợ lý ảo tư vấn tour Viet Travel 🤖.\n\nBạn muốn tìm hiểu lịch trình du lịch ở đâu (Sapa, Phú Quốc, Đà Nẵng, Đà Lạt, Hạ Long, Nha Trang...) hoặc có thắc mắc gì về dịch vụ không ạ?"}
@@ -201,18 +214,34 @@ if "CỔNG ĐẶT TOUR" in app_mode:
     c_left, c_right = st.columns([1.2, 1])
 
     with c_left:
-        st.subheader("1. Thông tin Chuyến đi & Nhu cầu")
+        st.subheader("1. Thời gian & Mùa vụ du lịch")
+        col_t1, col_t2 = st.columns(2)
+        with col_t1:
+            travel_month = st.selectbox(
+                "📅 Chọn tháng khởi hành",
+                [f"Tháng {m}" for m in range(1, 13)],
+                index=5 # Mặc định Tháng 6
+            )
+        with col_t2:
+            # Xác định mùa vụ
+            month_num = int(travel_month.split(" ")[1])
+            is_peak = month_num in [6, 7, 8, 12, 1]
+            season_label = "🔥 Mùa Cao Điểm (+20% phí)" if is_peak else "🍃 Mùa Thấp Điểm (Giá chuẩn)"
+            st.text_input("Trạng thái mùa vụ", value=season_label, disabled=True)
 
+        st.subheader("2. Thông tin Chuyến đi & Cơ cấu Khách")
         available_locations = sorted(list(st.session_state.df_hotels["Địa điểm"].unique()))
 
         col_a, col_b = st.columns(2)
         with col_a:
             destination = st.selectbox("📍 Điểm đến bạn muốn đi", available_locations)
-            pax = st.number_input("👥 Số lượng khách (Người)", min_value=1, value=4, step=1)
-            days = st.number_input("☀️ Số ngày đi", min_value=1, value=3, step=1)
-            nights = st.number_input("🌙 Số đêm ở", min_value=0, value=2, step=1)
+            pax_adult = st.number_input("👨‍🦰 Người lớn (≥ 12 tuổi) [100% giá]", min_value=1, value=2, step=1)
+            pax_child_5_12 = st.number_input("🧒 Trẻ em (5 - 12 tuổi) [50% giá]", min_value=0, value=1, step=1)
+            pax_child_under_5 = st.number_input("👶 Trẻ em (< 5 tuổi) [Miễn phí 0%]", min_value=0, value=0, step=1)
 
         with col_b:
+            days = st.number_input("☀️ Số ngày đi", min_value=1, value=3, step=1)
+            nights = st.number_input("🌙 Số đêm ở", min_value=0, value=2, step=1)
             star_rating = st.selectbox("⭐ Hạng Khách sạn mong muốn", ["5 Sao", "4 Sao", "3 Sao"])
             room_type = st.selectbox("🛏️ Loại phòng", ["Standard", "VIP / Suite"])
 
@@ -231,39 +260,71 @@ if "CỔNG ĐẶT TOUR" in app_mode:
                 hotel_price_per_night = 4500000 if star_rating == "5 Sao" else (2000000 if star_rating == "4 Sao" else 900000)
                 st.info(f"💡 Chưa có Partner cụ thể cho tùy chọn này. Sử dụng đơn giá tham chiếu {star_rating}.")
 
-        st.subheader("2. Dịch vụ đi kèm chọn thêm")
-        ca, cb, cc = st.columns(3)
-        with ca:
+        st.subheader("3. Phương tiện & Dịch vụ đi kèm")
+        col_f1, col_f2 = st.columns(2)
+        with col_f1:
+            inc_flight = st.checkbox("Đặt thêm Vé máy bay khứ hồi", value=False)
+            airline_choice = "Không đặt"
+            flight_class = "Không đặt"
+            if inc_flight:
+                airline_choice = st.selectbox("Hãng hàng không", list(FLIGHT_RATES.keys()))
+                flight_class = st.selectbox("Hạng ghế", ["Phổ thông", "Thương gia"])
+
+        with col_f2:
             inc_car = st.checkbox("Xe riêng đưa đón suốt tuyến", value=True)
-        with cb:
             inc_guide = st.checkbox("Hướng dẫn viên chuyên nghiệp", value=True)
-        with cc:
             inc_meal = st.checkbox("Bao gồm ăn uống (3 bữa/ngày)", value=True)
 
+        # Thông tin lưu ý chương trình tour
+        st.markdown("""
+        <div class="policy-box">
+            <b>📌 LƯU Ý TRONG CHƯƠNG TRÌNH TOUR:</b><br>
+            • <b>Độ tuổi tính phí:</b> Trẻ em < 5 tuổi miễn phí dịch vụ tour; Từ 5 đến dưới 12 tuổi tính 50% giá tour; Từ 12 tuổi trở lên tính giá như người lớn.<br>
+            • <b>Mùa vụ:</b> Mùa cao điểm (Tháng 6, 7, 8 và Tháng 12, 1) áp dụng phụ thu 20% do chênh lệch chi phí dịch vụ, phòng nghỉ và vé tham quan.<br>
+            • <b>Vé máy bay:</b> Giá vé trẻ em tuân thủ theo quy định riêng của từng hãng hàng không.
+        </div>
+        """, unsafe_allow_html=True)
+
     with c_right:
-        st.subheader("3. Báo Giá Chuyến Đi Chi Tiết")
+        st.subheader("4. Báo Giá Chuyến Đi Chi Tiết")
 
-        rooms_needed = math.ceil(pax / 2)
-        cost_hotel = rooms_needed * hotel_price_per_night * nights
-        cost_car = (TRANSPORT_RATES.get(destination, 1100000) * days) if inc_car else 0
-        cost_guide = (GUIDE_RATE * days) if inc_guide else 0
-        cost_meal = (pax * MEAL_RATES.get(star_rating, 200000) * 2 * days) if inc_meal else 0
+        # Quy đổi số khách tương đương để tính giá dịch vụ (Người lớn = 1, Trẻ 5-12t = 0.5, Trẻ <5t = 0)
+        effective_pax_services = pax_adult + (pax_child_5_12 * 0.5)
+        total_people_count = pax_adult + pax_child_5_12 + pax_child_under_5
 
-        total_cost_net = cost_hotel + cost_car + cost_guide + cost_meal
-        selling_price = total_cost_net / 0.8
-        price_per_pax = selling_price / pax
+        # Tính số phòng (Quy định 2 người lớn / phòng)
+        rooms_needed = math.ceil((pax_adult + (pax_child_5_12 * 0.5)) / 2)
+        
+        # Hệ số mùa vụ (Cao điểm tăng 20%)
+        seasonal_multiplier = 1.20 if is_peak else 1.0
+
+        # Tính chi phí Net các hạng mục
+        cost_hotel = rooms_needed * hotel_price_per_night * nights * seasonal_multiplier
+        cost_car = (TRANSPORT_RATES.get(destination, 1100000) * days * seasonal_multiplier) if inc_car else 0
+        cost_guide = (GUIDE_RATE * days * seasonal_multiplier) if inc_guide else 0
+        cost_meal = (effective_pax_services * MEAL_RATES.get(star_rating, 200000) * 2 * days * seasonal_multiplier) if inc_meal else 0
+
+        # Chi phí vé máy bay
+        flight_cost_per_person = FLIGHT_RATES.get(airline_choice, {}).get(flight_class, 0) if inc_flight else 0
+        cost_flight_total = flight_cost_per_person * (pax_adult + pax_child_5_12) # Tạm tính vé MB trẻ em 5-12t
+
+        total_cost_net = cost_hotel + cost_car + cost_guide + cost_meal + cost_flight_total
+        selling_price = total_cost_net / 0.8  # Margin 20%
 
         st.markdown(f"""
         <div class="booking-card">
             <h3 style="color: #15803D; margin:0;">TỔNG CHI PHÍ TRỌN GÓI</h3>
             <h1 style="color: #16A34A; margin: 10px 0;">{selling_price:,.0f} VNĐ</h1>
-            <p style="font-size: 18px; color: #1E3A8A; margin:0;"><b>Đơn giá/Khách:</b> <span style="color: #B91C1C;">{price_per_pax:,.0f} VNĐ</span></p>
+            <p style="font-size: 15px; color: #1E3A8A; margin:0;"><b>Khởi hành:</b> {travel_month} ({'Cao điểm' if is_peak else 'Thấp điểm'})</p>
+            <p style="font-size: 14px; color: #4B5563; margin-top:5px;"><b>Cơ cấu:</b> {pax_adult} Người lớn | {pax_child_5_12} Trẻ em (5-12t) | {pax_child_under_5} Trẻ em (<5t)</p>
         </div>
         """, unsafe_allow_html=True)
 
         st.write("")
         st.markdown("**Bóc tách hạng mục chi phí đã bao gồm:**")
         st.write(f"- 🛏️ **Khách sạn:** {rooms_needed} phòng {room_type} ({selected_hotel_name}) x {nights} đêm.")
+        if inc_flight:
+            st.write(f"- ✈️ **Vé máy bay:** {airline_choice} - Hạng {flight_class}.")
         st.write(f"- 🚗 **Di chuyển:** Xe đưa đón riêng tại {destination} ({days} ngày).")
         st.write(f"- 👨‍💼 **Phục vụ:** Hướng dẫn viên suốt tuyến ({days} ngày).")
         st.write(f"- 🍽️ **Ẩm thực:** {days*2} bữa ăn chính theo tiêu chuẩn {star_rating}.")
@@ -273,21 +334,29 @@ if "CỔNG ĐẶT TOUR" in app_mode:
         with st.form("customer_booking_form"):
             cust_name = st.text_input("Họ và Tên người đặt*", placeholder="Nhập họ tên...")
             cust_phone = st.text_input("Số điện thoại liên hệ*", placeholder="Nhập SĐT...")
-            cust_note = st.text_area("Ghi chú thêm (Nếu có)", placeholder="Ví dụ: Yêu cầu phòng tầng cao, hướng biển...")
+            cust_note = st.text_area("Ghi chú thêm (Nếu có)", placeholder="Ví dụ: Yêu cầu phòng tầng cao, có xe đẩy trẻ em...")
 
             btn_submit = st.form_submit_button("🚀 ĐẶT TOUR NGAY")
             if btn_submit:
                 if not cust_name or not cust_phone:
                     st.error("Vui lòng nhập đầy đủ Họ tên và Số điện thoại!")
                 else:
+                    pax_str = f"{pax_adult} NL"
+                    if pax_child_5_12 > 0: pax_str += f", {pax_child_5_12} TE(5-12t)"
+                    if pax_child_under_5 > 0: pax_str += f", {pax_child_under_5} TE(<5t)"
+
+                    flight_str = f"{airline_choice} ({flight_class})" if inc_flight else "Không vé bay"
+
                     new_booking = {
                         "Mã Đơn": f"BK-{1001 + len(st.session_state.df_bookings)}",
                         "Tên Khách": cust_name,
                         "SĐT": cust_phone,
                         "Điểm đến": destination,
-                        "Số Khách": pax,
+                        "Số Khách": pax_str,
+                        "Thời gian đi": f"{travel_month} ({'Cao điểm' if is_peak else 'Thấp điểm'})",
                         "Ngày/Đêm": f"{days}N{nights}Đ",
                         "Khách sạn": f"{selected_hotel_name} ({star_rating} {room_type})",
+                        "Bay": flight_str,
                         "Tổng Tiền": selling_price,
                         "Trạng thái": "Chờ Giám đốc duyệt",
                         "Ngày đặt": str(date.today())
@@ -336,16 +405,28 @@ elif "CHATBOT" in app_mode:
         for loc_key, itinerary in ITINERARY_DATABASE.items():
             if loc_key in prompt_lower:
                 response = f"Dưới đây là gợi ý lịch trình chi tiết cho chuyến đi **{loc_key.upper()}** của bạn:\n" + itinerary
-                response += "\n\n👉 Bạn có thể chuyển sang tab **'CỔNG ĐẶT TOUR'** ở thanh bên trái để tự chọn số người, số ngày và nhận báo giá trọn gói tự động nhé!"
+                response += "\n\n👉 Bạn có thể chuyển sang tab **'CỔNG ĐẶT TOUR'** ở thanh bên trái để chọn tháng đi, độ tuổi trẻ em, hãng máy bay và nhận báo giá trọn gói tự động nhé!"
                 found_destination = True
                 break
 
         if not found_destination:
-            if "giá" in prompt_lower or "chi phí" in prompt_lower or "tiền" in prompt_lower:
+            if "trẻ em" in prompt_lower or "tuổi" in prompt_lower or "giá trẻ em" in prompt_lower:
+                response = """
+👶 **Chính sách giá tour theo độ tuổi tại Viet Travel:**
+- **Dưới 5 tuổi:** Miễn phí 100% giá dịch vụ tour.
+- **Từ 5 đến dưới 12 tuổi:** Tính 50% giá dịch vụ tour.
+- **Từ 12 tuổi trở lên:** Tính như người lớn (100% giá).
+                """
+            elif "mùa" in prompt_lower or "cao điểm" in prompt_lower or "tháng" in prompt_lower:
+                response = """
+📅 **Chính sách Mùa vụ Du lịch:**
+- **Mùa cao điểm (Tháng 6, 7, 8 và Tháng 12, 1):** Phụ thu 20% do dịch vụ vé tham quan, phòng ở và di chuyển tăng cao.
+- **Mùa thấp điểm (Các tháng còn lại):** Áp dụng nguyên giá chuẩn, nhiều ưu đãi đi kèm.
+                """
+            elif "giá" in prompt_lower or "chi phí" in prompt_lower or "tiền" in prompt_lower:
                 response = """
 💰 **Thông tin chi phí Tour:**
-- Giá tour được tự động tính toán dựa trên: **Số lượng người**, **Số ngày đêm**, **Hạng khách sạn (3-5 sao)** và **Các dịch vụ chọn thêm** (Xe đưa đón, HDV, Ăn uống).
-- Báo giá minh bạch bao gồm chi phí Net và ưu đãi định mức.
+- Giá tour được tự động tính toán dựa trên: **Tháng đi (Mùa vụ)**, **Cơ cấu độ tuổi (Người lớn/Trẻ em)**, **Loại vé máy bay/hãng bay** và **Hạng khách sạn (3-5 sao)**.
 - Bạn vui lòng vào tab **'CỔNG ĐẶT TOUR'** chọn các tùy chọn để xem bảng giá chính xác nhất!
                 """
             elif "khách sạn" in prompt_lower or "phòng" in prompt_lower:
@@ -410,13 +491,15 @@ else:
         df_b = st.session_state.df_bookings
 
         for idx, row in df_b.iterrows():
-            with st.expander(f"📌 Mã đơn: **{row['Mã Đơn']}** | Khách: **{row['Tên Khách']}** ({row['SĐT']}) - **{row['Điểm đến']}** ({row['Ngày/Đêm']}) - **{row['Trạng thái']}**"):
+            with st.expander(f"📌 Mã đơn: **{row['Mã Đơn']}** | Khách: **{row['Tên Khách']}** ({row['SĐT']}) - **{row['Điểm đến']}** - **{row['Trạng thái']}**"):
                 col1, col2 = st.columns(2)
                 with col1:
                     st.write(f"- **Điểm đến:** {row['Điểm đến']}")
-                    st.write(f"- **Số lượng khách:** {row['Số Khách']} người")
-                    st.write(f"- **Thời gian:** {row['Ngày/Đêm']}")
+                    st.write(f"- **Thời gian khởi hành:** {row.get('Thời gian đi', 'N/A')}")
+                    st.write(f"- **Số lượng khách:** {row['Số Khách']}")
+                    st.write(f"- **Lịch trình:** {row['Ngày/Đêm']}")
                     st.write(f"- **Khách sạn yêu cầu:** {row['Khách sạn']}")
+                    st.write(f"- **Chuyến bay:** {row.get('Bay', 'Không vé bay')}")
                 with col2:
                     st.write(f"- **Tổng giá trị đơn:** {row['Tổng Tiền']:,.0f} VNĐ")
                     st.write(f"- **Ngày đặt:** {row['Ngày đặt']}")
@@ -435,7 +518,6 @@ else:
     elif ceo_menu == "👨‍💼 Quản lý Nhân sự & HDV":
         st.markdown('<div class="main-title">👨‍💼 QUẢN LÝ DANH SÁCH NHÂN SỰ & HƯỚNG DẪN VIÊN</div>', unsafe_allow_html=True)
 
-        # Thống kê nhanh
         df_s = st.session_state.df_staff
         c_hdv1, c_hdv2, c_hdv3 = st.columns(3)
         c_hdv1.metric("TỔNG NHÂN SỰ/HDV", f"{len(df_s)} Người")
@@ -444,7 +526,6 @@ else:
 
         st.divider()
 
-        # Bộ lọc nhân sự
         flt_col1, flt_col2 = st.columns(2)
         with flt_col1:
             role_filter = st.multiselect("Lọc theo Chức danh", options=df_s["Chức danh"].unique(), default=df_s["Chức danh"].unique())
