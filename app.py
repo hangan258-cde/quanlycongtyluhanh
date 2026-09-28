@@ -72,10 +72,10 @@ def get_initial_hotels():
 
         # --- HÀ NỘI ---
         {"Mã HS": "H028", "Tên Khách Sạn": "InterContinental Westlake", "Địa điểm": "Hà Nội", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 5500000},
-        
+
         # --- QUY NHƠN ---
         {"Mã HS": "H031", "Tên Khách Sạn": "Anantara Quy Nhon Villas", "Địa điểm": "Quy Nhơn", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 9800000},
-        
+
         # --- TP. HỒ CHÍ MINH ---
         {"Mã HS": "H034", "Tên Khách Sạn": "The Reverie Saigon", "Địa điểm": "TP. Hồ Chí Minh", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 7500000}
     ]
@@ -86,16 +86,16 @@ ITINERARY_DATABASE = {
 🗓️ **Lịch trình gợi ý Sapa (3 Ngày 2 Đêm):**
 - **Ngày 1:** Đến Sapa -> Check-in khách sạn -> Tham quan Bản Cát Cát, tìm hiểu văn hóa H'Mông -> Tối dạo Chợ đêm, thưởng thức đồ nướng.
 - **Ngày 2:** Chinh phục Đỉnh Fansipan bằng cáp treo -> Chiều check-in Moana Sapa / Cầu kính Rồng Mây -> Tối tắm lá thuốc người Dao đỏ.
-- **Ngày 3:** Thăm Thung lũng Mường Hoa / Đèo O Quy Hồ -> Mua đặc sản (thịt trâu gầy, hạt dổi) -> Khởi hành về.
+- **Ngày 3:** Thăm Thung lũng Mường Hoa / Đèo Ô Quy Hồ -> Mua đặc sản (thịt trâu gác bếp, hạt dổi) -> Khởi hành về.
     """,
     "phú quốc": """
 🗓️ **Lịch trình gợi ý Phú Quốc (4 Ngày 3 Đêm):**
 - **Ngày 1:** Đón sân bay -> Check-in resort -> Chiều ngắm hoàng hôn tại Sunset Sanato / Grand World -> Tối khám phá Chợ đêm Phú Quốc.
-- **Ngày 2:** Tour 4 Đảo (Hòn Mây Rút, Hòn Mầm Xưởng...) -> Lặn ngắm san hô -> Trải nghiệm Cáp treo Hòn Thơm dài nhất thế giới.
-- **Ngày 3:** Khám phá VinWonders & Vinpearl Safari -> Tối xem show diễn triệu đô Grand World (Sắc Màu Hồ Dược).
+- **Ngày 2:** Tour 4 Đảo (Hòn Mây Rút, Hòn Móng Tay...) -> Lặn ngắm san hô -> Trải nghiệm Cáp treo Hòn Thơm dài nhất thế giới.
+- **Ngày 3:** Khám phá VinWonders & Vinpearl Safari -> Tối xem show diễn triệu đô Grand World (Sắc Màu Venices).
 - **Ngày 4:** Mua sắm đặc sản (Hạt tiêu, Rượu sim, Nước mắm) -> Tự do tắm biển -> Ra sân bay.
     """,
-    "đà năng": """
+    "đà nẵng": """
 🗓️ **Lịch trình gợi ý Đà Nẵng - Hội An (3 Ngày 2 Đêm):**
 - **Ngày 1:** Đón khách Đà Nẵng -> Bán đảo Sơn Trà (Chùa Linh Ứng) -> Chiều di chuyển Phố cổ Hội An, thả hoa đăng -> Tối về Đà Nẵng.
 - **Ngày 2:** Vui chơi trọn ngày tại Sun World Bà Nà Hills (Check-in Cầu Vàng, Làng Pháp) -> Tối ngắm Cầu Rồng phun lửa/nước.
@@ -103,7 +103,7 @@ ITINERARY_DATABASE = {
     """,
     "đà lạt": """
 🗓️ **Lịch trình gợi ý Đà Lạt (3 Ngày 2 Đêm):**
-- **Ngày 1:** Check-in Quảng trường Lâm Viên, Hồ Xuân Hương -> Quảng trường Dinh I / Dinh III -> Tối dạo Chợ Âm Phủ thưởng thức bánh tráng nướng.
+- **Ngày 1:** Check-in Quảng trường Lâm Viên, Hồ Xuân Hương -> Tham quan Dinh I / Dinh III -> Tối dạo Chợ Âm Phủ thưởng thức bánh tráng nướng.
 - **Ngày 2:** Săn mây đồi Cầu Đất -> Tham quan Chùa Ve Chai (Linh Phước) -> Chiều check-in Thung lũng Tình Yêu / Mongo Land -> Tối nghe nhạc acoustic.
 - **Ngày 3:** Langbiang -> Thác Datanla (chơi xe trượt) -> Mua mứt đặc sản Đà Lạt -> Về lại.
     """,
@@ -114,7 +114,7 @@ ITINERARY_DATABASE = {
     """,
     "nha trang": """
 🗓️ **Lịch trình gợi ý Nha Trang (3 Ngày 2 Đêm):**
-- **Ngày 1:** Đón khách -> Tháp Bà Ponagar -> Chùa Long Sơn -> Chiều tắm biển Trần Phú -> Tối ăn hải sản tháp bà.
+- **Ngày 1:** Đón khách -> Tháp Bà Ponagar -> Chùa Long Sơn -> Chiều tắm biển Trần Phú -> Tối ăn hải sản.
 - **Ngày 2:** Vui chơi trọn gói tại VinWonders Hòn Tre (Cáp treo vượt biển, công viên nước, show Tata) -> Tối dạo chợ đêm.
 - **Ngày 3:** Tour lặn biển Hòn Mun / Đảo Yến -> Mua yến sào, nem nướng -> Tiễn khách.
     """
@@ -125,8 +125,8 @@ TRANSPORT_RATES = {
     "Phú Quốc": 1200000, "Đà Nẵng": 1000000, "Hà Nội": 900000, "Sapa": 1500000,
     "Nha Trang": 1100000, "Đà Lạt": 1300000, "Hạ Long": 1200000, "Quy Nhơn": 1200000, "TP. Hồ Chí Minh": 1000000
 }
-GUIDE_RATE = 800000 # HDV/ngày
-MEAL_RATES = {"3 Sao": 150000, "4 Sao": 250000, "5 Sao": 450000} # Tiền ăn/người/bữa
+GUIDE_RATE = 800000  # HDV/ngày
+MEAL_RATES = {"3 Sao": 150000, "4 Sao": 250000, "5 Sao": 450000}  # Tiền ăn/người/bữa
 
 # Khởi tạo session states
 if 'df_hotels' not in st.session_state:
@@ -140,7 +140,7 @@ if 'df_bookings' not in st.session_state:
 
 if 'df_tours' not in st.session_state:
     st.session_state.df_tours = pd.DataFrame([
-        {"ID": "T001", "Tên Tour": "Hà Nội - Sapa - Fanxipan 3N2Đ", "Loại": "Nội địa", "Khởi hành": "2026-10-05", "Trạng thái": "Đã đủ chỗ", "Số chỗ": 25, "Đã đặt": 25, "Doanh thu": 105000000, "Chi phí": 78000000},
+        {"ID": "T001", "Tên Tour": "Hà Nội - Sapa - Fansipan 3N2Đ", "Loại": "Nội địa", "Khởi hành": "2026-10-05", "Trạng thái": "Đã đủ chỗ", "Số chỗ": 25, "Đã đặt": 25, "Doanh thu": 105000000, "Chi phí": 78000000},
         {"ID": "T002", "Tên Tour": "Đà Nẵng - Hội An - Bà Nà 4N3Đ", "Loại": "Nội địa", "Khởi hành": "2026-10-10", "Trạng thái": "Mở bán", "Số chỗ": 30, "Đã đặt": 18, "Doanh thu": 104400000, "Chi phí": 72000000}
     ])
 
@@ -165,16 +165,15 @@ if "chat_history" not in st.session_state:
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/201/201623.png", width=65)
     st.title("VIET TRAVEL ENTERPRISE")
-    
+
     app_mode = st.radio(
         "🔀 CHỌN CHẾ ĐỘ SỬ DỤNG:",
         ["🌟 CỔNG ĐẶT TOUR (Dành cho Khách)", "💬 CHATBOT TƯ VẤN LỊCH TRÌNH", "👔 HỆ THỐNG QUẢN TRỊ (Dành cho CEO)"],
         index=0
     )
-    
+
     st.divider()
 
-    ceo_menu = None
     if "CEO" in app_mode:
         ceo_menu = st.selectbox(
             "DANH MỤC QUẢN TRỊ:",
@@ -203,7 +202,7 @@ if "CỔNG ĐẶT TOUR" in app_mode:
 
     with c_left:
         st.subheader("1. Thông tin Chuyến đi & Nhu cầu")
-        
+
         available_locations = sorted(list(st.session_state.df_hotels["Địa điểm"].unique()))
 
         col_a, col_b = st.columns(2)
@@ -243,7 +242,7 @@ if "CỔNG ĐẶT TOUR" in app_mode:
 
     with c_right:
         st.subheader("3. Báo Giá Chuyến Đi Chi Tiết")
-        
+
         rooms_needed = math.ceil(pax / 2)
         cost_hotel = rooms_needed * hotel_price_per_night * nights
         cost_car = (TRANSPORT_RATES.get(destination, 1100000) * days) if inc_car else 0
@@ -261,7 +260,7 @@ if "CỔNG ĐẶT TOUR" in app_mode:
             <p style="font-size: 18px; color: #1E3A8A; margin:0;"><b>Đơn giá/Khách:</b> <span style="color: #B91C1C;">{price_per_pax:,.0f} VNĐ</span></p>
         </div>
         """, unsafe_allow_html=True)
-        
+
         st.write("")
         st.markdown("**Bóc tách hạng mục chi phí đã bao gồm:**")
         st.write(f"- 🛏️ **Khách sạn:** {rooms_needed} phòng {room_type} ({selected_hotel_name}) x {nights} đêm.")
@@ -275,7 +274,7 @@ if "CỔNG ĐẶT TOUR" in app_mode:
             cust_name = st.text_input("Họ và Tên người đặt*", placeholder="Nhập họ tên...")
             cust_phone = st.text_input("Số điện thoại liên hệ*", placeholder="Nhập SĐT...")
             cust_note = st.text_area("Ghi chú thêm (Nếu có)", placeholder="Ví dụ: Yêu cầu phòng tầng cao, hướng biển...")
-            
+
             btn_submit = st.form_submit_button("🚀 ĐẶT TOUR NGAY")
             if btn_submit:
                 if not cust_name or not cust_phone:
@@ -378,7 +377,7 @@ Bạn hãy nhập tên địa điểm muốn đi để tôi gửi lịch trình 
 else:
     if ceo_menu == "📊 Dashboard Điều hành CEO":
         st.markdown('<div class="main-title">👔 EXECUTIVE DASHBOARD - BÁO CÁO BÀN GIÁO QUẢN TRỊ</div>', unsafe_allow_html=True)
-        
+
         df_b = st.session_state.df_bookings
         df_t = st.session_state.df_tours
 
@@ -394,13 +393,13 @@ else:
         k4.metric("ĐƠN ĐẶT TOUR CHỜ DUYỆT", f"{pending_orders} Đơn", delta="Cần xử lý ngay" if pending_orders > 0 else "Đã xong", delta_color="inverse")
 
         st.divider()
-        
+
         c1, c2 = st.columns(2)
         with c1:
             st.subheader("📈 Doanh thu theo Điểm đến (Tour Thiết Kế)")
             chart_data_dest = df_b.groupby("Điểm đến")["Tổng Tiền"].sum()
             st.bar_chart(chart_data_dest)
-        
+
         with c2:
             st.subheader("📊 So sánh Doanh thu vs Chi phí các Tour")
             chart_data_tour = df_t.set_index("ID")[["Doanh thu", "Chi phí"]]
@@ -421,15 +420,12 @@ else:
                 with col2:
                     st.write(f"- **Tổng giá trị đơn:** {row['Tổng Tiền']:,.0f} VNĐ")
                     st.write(f"- **Ngày đặt:** {row['Ngày đặt']}")
-                    
-                    status_list = ["Chờ Giám đốc duyệt", "Đã chốt & Cọc", "Đã hoàn thành", "Hủy đơn"]
-                    current_idx = status_list.index(row["Trạng thái"]) if row["Trạng thái"] in status_list else 0
-                    
+
                     new_status = st.selectbox(
-                        "Cập nhật Trạng thái đơn:", 
-                        status_list, 
-                        key=f"status_select_{idx}", 
-                        index=current_idx
+                        "Cập nhật Trạng thái đơn:",
+                        ["Chờ Giám đốc duyệt", "Đã chốt & Cọc", "Đã hoàn thành", "Hủy đơn"],
+                        key=f"status_{idx}",
+                        index=["Chờ Giám đốc duyệt", "Đã chốt & Cọc", "Đã hoàn thành", "Hủy đơn"].index(row["Trạng thái"])
                     )
                     if new_status != row["Trạng thái"]:
                         st.session_state.df_bookings.at[idx, "Trạng thái"] = new_status
@@ -438,7 +434,7 @@ else:
 
     elif ceo_menu == "👨‍💼 Quản lý Nhân sự & HDV":
         st.markdown('<div class="main-title">👨‍💼 QUẢN LÝ DANH SÁCH NHÂN SỰ & HƯỚNG DẪN VIÊN</div>', unsafe_allow_html=True)
-        
+
         # Thống kê nhanh
         df_s = st.session_state.df_staff
         c_hdv1, c_hdv2, c_hdv3 = st.columns(3)
@@ -480,7 +476,7 @@ else:
                     st.error("Vui lòng điền đầy đủ Họ tên và Số điện thoại!")
                 else:
                     new_staff = {
-                        "Mã NV": f"NV-{len(st.session_state.df_staff) + 1:03d}",
+                        "Mã NV": f"NV-0{len(st.session_state.df_staff)+1}",
                         "Họ và Tên": st_name,
                         "Chức danh": st_role,
                         "SĐT": st_phone,
@@ -495,7 +491,7 @@ else:
 
     elif ceo_menu == "🏨 Quản lý Khách sạn Partner":
         st.markdown('<div class="main-title">🏨 QUẢN LÝ DANH MỤC KHÁCH SẠN PARTNER</div>', unsafe_allow_html=True)
-        
+
         col_filter1, col_filter2 = st.columns(2)
         with col_filter1:
             loc_filter = st.multiselect("Lọc theo Địa điểm", options=st.session_state.df_hotels["Địa điểm"].unique(), default=st.session_state.df_hotels["Địa điểm"].unique())
@@ -508,7 +504,7 @@ else:
         ]
 
         st.dataframe(filtered_df, use_container_width=True, hide_index=True)
-        
+
         st.subheader("➕ Thêm Khách sạn Partner Mới")
         with st.form("add_hotel_form"):
             h1, h2, h3 = st.columns(3)
@@ -520,12 +516,12 @@ else:
                 h_room = st.selectbox("Loại Phòng", ["Standard", "VIP / Suite"])
             with h3:
                 h_price = st.number_input("Giá/Phòng/Đêm (VNĐ)", step=100000, value=2000000)
-                
+
             btn_add = st.form_submit_button("Lưu Khách Sạn Mới")
             if btn_add:
                 if h_name:
                     new_h = {
-                        "Mã HS": f"H{len(st.session_state.df_hotels) + 1:03d}",
+                        "Mã HS": f"H00{len(st.session_state.df_hotels)+1}",
                         "Tên Khách Sạn": h_name,
                         "Địa điểm": h_location,
                         "Hạng": h_star,
