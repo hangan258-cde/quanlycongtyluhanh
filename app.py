@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
 from datetime import datetime, date
 import math
 
@@ -32,13 +31,6 @@ st.markdown("""
         border-radius: 12px;
         text-align: center;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
-    .kpi-card {
-        background-color: #F8FAFC;
-        border-left: 5px solid #2563EB;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -247,13 +239,13 @@ else:
         c1, c2 = st.columns(2)
         with c1:
             st.subheader("📈 Doanh thu theo Điểm đến (Tour Thiết Kế)")
-            fig_dest = px.pie(df_b, names="Điểm đến", values="Tổng Tiền", hole=0.4, title="Thị phần Điểm đến Khách Đặt nhiều nhất")
-            st.plotly_chart(fig_dest, use_container_width=True)
+            chart_data_dest = df_b.groupby("Điểm đến")["Tổng Tiền"].sum()
+            st.bar_chart(chart_data_dest)
         
         with c2:
-            st.subheader("📊 Tình hình Vận hành các Tour Ghép")
-            fig_tour = px.bar(df_t, x="ID", y=["Doanh thu", "Chi phí"], barmode="group", title="So sánh Doanh thu vs Chi phí các Tour")
-            st.plotly_chart(fig_tour, use_container_width=True)
+            st.subheader("📊 So sánh Doanh thu vs Chi phí các Tour")
+            chart_data_tour = df_t.set_index("ID")[["Doanh thu", "Chi phí"]]
+            st.bar_chart(chart_data_tour)
 
     elif ceo_menu == "📥 Tiếp nhận & Duyệt Đơn đặt":
         st.markdown('<div class="main-title">📥 QUẢN LÝ & DUYỆT YÊU CẦU ĐẶT TOUR TỪ KHÁCH HÀNG</div>', unsafe_allow_html=True)
