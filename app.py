@@ -36,7 +36,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 2. KHỞI TẠO DỮ LIỆU ĐỊA ĐIỂM & KHÁCH SẠN RỘNG RÃI
+# 2. KHỞI TẠO DỮ LIỆU ĐỊA ĐIỂM & KHÁCH SẠN
 # ==========================================
 @st.cache_data
 def get_initial_hotels():
@@ -52,51 +52,75 @@ def get_initial_hotels():
         {"Mã HS": "H006", "Tên Khách Sạn": "Sun World Hotel", "Địa điểm": "Đà Nẵng", "Hạng": "4 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 1200000},
         {"Mã HS": "H007", "Tên Khách Sạn": "Novotel Han River VIP", "Địa điểm": "Đà Nẵng", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 3800000},
         {"Mã HS": "H008", "Tên Khách Sạn": "InterContinental Danang Sun Peninsula", "Địa điểm": "Đà Nẵng", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 9200000},
-        {"Mã HS": "H009", "Tên Khách Sạn": "Furama Resort Đà Nẵng", "Địa điểm": "Đà Nẵng", "Hạng": "5 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 3100000},
-        {"Mã HS": "H010", "Tên Khách Sạn": "Muống Thanh Grand Đà Nẵng", "Địa điểm": "Đà Nẵng", "Hạng": "4 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 1100000},
 
         # --- SAPA ---
         {"Mã HS": "H011", "Tên Khách Sạn": "Hôtel de la Coupole MGallery", "Địa điểm": "Sapa", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 4900000},
         {"Mã HS": "H012", "Tên Khách Sạn": "Silk Path Grand Resort Sapa", "Địa điểm": "Sapa", "Hạng": "5 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 2800000},
         {"Mã HS": "H013", "Tên Khách Sạn": "Sapa Horizon Hotel", "Địa điểm": "Sapa", "Hạng": "3 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 850000},
-        {"Mã HS": "H014", "Tên Khách Sạn": "Bamboo Sapa Hotel", "Địa điểm": "Sapa", "Hạng": "4 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 1400000},
 
         # --- NHA TRANG ---
         {"Mã HS": "H015", "Tên Khách Sạn": "Vinpearl Resort Nha Trang", "Địa điểm": "Nha Trang", "Hạng": "5 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 2600000},
         {"Mã HS": "H016", "Tên Khách Sạn": "Amiana Resort Nha Trang", "Địa điểm": "Nha Trang", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 5200000},
-        {"Mã HS": "H017", "Tên Khách Sạn": "Havana Nha Trang Hotel", "Địa điểm": "Nha Trang", "Hạng": "5 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 1900000},
-        {"Mã HS": "H018", "Tên Khách Sạn": "Liberty Central Nha Trang", "Địa điểm": "Nha Trang", "Hạng": "4 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 1250000},
 
         # --- ĐÀ LẠT ---
         {"Mã HS": "H019", "Tên Khách Sạn": "Dalat Palace Heritage Hotel", "Địa điểm": "Đà Lạt", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 4200000},
-        {"Mã HS": "H020", "Tên Khách Sạn": "Ana Mandara Villas Dalat Resort", "Địa điểm": "Đà Lạt", "Hạng": "5 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 2700000},
         {"Mã HS": "H021", "Tên Khách Sạn": "Terracotta Hotel & Resort", "Địa điểm": "Đà Lạt", "Hạng": "4 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 1500000},
-        {"Mã HS": "H022", "Tên Khách Sạn": "TTC Hotel - Ngọc Lan", "Địa điểm": "Đà Lạt", "Hạng": "4 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 1300000},
-        {"Mã HS": "H023", "Tên Khách Sạn": "Khách Sạn Mơ Tới Đà Lạt", "Địa điểm": "Đà Lạt", "Hạng": "3 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 700000},
 
         # --- HẠ LONG ---
         {"Mã HS": "H024", "Tên Khách Sạn": "Vinpearl Resort & Spa Hạ Long", "Địa điểm": "Hạ Long", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 4500000},
         {"Mã HS": "H025", "Tên Khách Sạn": "FLC Grand Hotel Hạ Long", "Địa điểm": "Hạ Long", "Hạng": "5 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 2200000},
-        {"Mã HS": "H026", "Tên Khách Sạn": "Mường Thanh Luxury Hạ Long", "Địa điểm": "Hạ Long", "Hạng": "5 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 1800000},
-        {"Mã HS": "H027", "Tên Khách Sạn": "Halong Palace Hotel", "Địa điểm": "Hạ Long", "Hạng": "4 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 1100000},
 
         # --- HÀ NỘI ---
         {"Mã HS": "H028", "Tên Khách Sạn": "InterContinental Westlake", "Địa điểm": "Hà Nội", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 5500000},
-        {"Mã HS": "H029", "Tên Khách Sạn": "Lotte Hotel Hanoi", "Địa điểm": "Hà Nội", "Hạng": "5 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 3200000},
-        {"Mã HS": "H030", "Tên Khách Sạn": "Khách Sạn Thắng Lợi", "Địa điểm": "Hà Nội", "Hạng": "3 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 800000},
-
+        
         # --- QUY NHƠN ---
         {"Mã HS": "H031", "Tên Khách Sạn": "Anantara Quy Nhon Villas", "Địa điểm": "Quy Nhơn", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 9800000},
-        {"Mã HS": "H032", "Tên Khách Sạn": "FLC Luxury Resort Quy Nhơn", "Địa điểm": "Quy Nhơn", "Hạng": "5 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 2900000},
-        {"Mã HS": "H033", "Tên Khách Sạn": "Seagull Hotel Quy Nhơn", "Địa điểm": "Quy Nhơn", "Hạng": "4 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 1200000},
-
+        
         # --- TP. HỒ CHÍ MINH ---
-        {"Mã HS": "H034", "Tên Khách Sạn": "The Reverie Saigon", "Địa điểm": "TP. Hồ Chí Minh", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 7500000},
-        {"Mã HS": "H035", "Tên Khách Sạn": "Rex Hotel Saigon", "Địa điểm": "TP. Hồ Chí Minh", "Hạng": "5 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 3000000},
-        {"Mã HS": "H036", "Tên Khách Sạn": "Liberty Central Saigon Centre", "Địa điểm": "TP. Hồ Chí Minh", "Hạng": "4 Sao", "Loại phòng": "Standard", "Giá/Phòng/Đêm": 1600000}
+        {"Mã HS": "H034", "Tên Khách Sạn": "The Reverie Saigon", "Địa điểm": "TP. Hồ Chí Minh", "Hạng": "5 Sao", "Loại phòng": "VIP / Suite", "Giá/Phòng/Đêm": 7500000}
     ]
 
-# Đơn giá tham chiếu vận chuyển theo ngày cho các địa điểm mở rộng
+# Dữ liệu lịch trình mẫu cho Chatbot tư vấn
+ITINERARY_DATABASE = {
+    "sapa": """
+🗓️ **Lịch trình gợi ý Sapa (3 Ngày 2 Đêm):**
+- **Ngày 1:** Đến Sapa -> Check-in khách sạn -> Tham quan Bản Cát Cát, tìm hiểu văn hóa H'Mông -> Tối dạo Chợ đêm, thưởng thức đồ nướng.
+- **Ngày 2:** Chinh phục Đỉnh Fansipan bằng cáp treo -> Chiều check-in Moana Sapa / Cầu kính Rồng Mây -> Tối tắm lá thuốc người Dao đỏ.
+- **Ngày 3:** Thăm Thung lũng Mường Hoa / Đèo O Quy Hồ -> Mua đặc sản (thịt trâu gầy, hạt dổi) -> Khởi hành về.
+    """,
+    "phú quốc": """
+🗓️ **Lịch trình gợi ý Phú Quốc (4 Ngày 3 Đêm):**
+- **Ngày 1:** Đón sân bay -> Check-in resort -> Chiều ngắm hoàng hôn tại Sunset Sanato / Grand World -> Tối khám phá Chợ đêm Phú Quốc.
+- **Ngày 2:** Tour 4 Đảo (Hòn Mây Rút, Hòn Mầm Xưởng...) -> Lặn ngắm san hô -> Trải nghiệm Cáp treo Hòn Thơm dài nhất thế giới.
+- **Ngày 3:** Khám phá VinWonders & Vinpearl Safari -> Tối xem show diễn triệu đô Grand World (Sắc Màu Hồ Dược).
+- **Ngày 4:** Mua sắm đặc sản (Hạt tiêu, Rượu sim, Nước mắm) -> Tự do tắm biển -> Ra sân bay.
+    """,
+    "đà năng": """
+🗓️ **Lịch trình gợi ý Đà Nẵng - Hội An (3 Ngày 2 Đêm):**
+- **Ngày 1:** Đón khách Đà Nẵng -> Bán đảo Sơn Trà (Chùa Linh Ứng) -> Chiều di chuyển Phố cổ Hội An, thả hoa đăng -> Tối về Đà Nẵng.
+- **Ngày 2:** Vui chơi trọn ngày tại Sun World Bà Nà Hills (Check-in Cầu Vàng, Làng Pháp) -> Tối ngắm Cầu Rồng phun lửa/nước.
+- **Ngày 3:** Tham quan Danh thắng Ngũ Hành Sơn -> Mua sắm Chợ Hàn -> Tiễn sân bay.
+    """,
+    "đà lạt": """
+🗓️ **Lịch trình gợi ý Đà Lạt (3 Ngày 2 Đêm):**
+- **Ngày 1:** Check-in Quảng trường Lâm Viên, Hồ Xuân Hương -> Quảng trường Dinh I / Dinh III -> Tối dạo Chợ Âm Phủ thưởng thức bánh tráng nướng.
+- **Ngày 2:** Săn mây đồi Cầu Đất -> Tham quan Chùa Ve Chai (Linh Phước) -> Chiều check-in Thung lũng Tình Yêu / Mongo Land -> Tối nghe nhạc acoustic.
+- **Ngày 3:** Langbiang -> Thác Datanla (chơi xe trượt) -> Mua mứt đặc sản Đà Lạt -> Về lại.
+    """,
+    "hạ long": """
+🗓️ **Lịch trình gợi ý Hạ Long (2 Ngày 1 Đêm):**
+- **Ngày 1:** Lên du thuyền thăm Vịnh Hạ Long (Động Thiên Cung, Hang Đầu Gỗ, Hòn Gà Chọi) -> Ăn trưa hải sản trên tàu -> Check-in khách sạn -> Tối quẩy tại Sun World Park.
+- **Ngày 2:** Tắm biển Bãi Cháy -> Mua chả mực Hạ Long -> Trả phòng về.
+    """,
+    "nha trang": """
+🗓️ **Lịch trình gợi ý Nha Trang (3 Ngày 2 Đêm):**
+- **Ngày 1:** Đón khách -> Tháp Bà Ponagar -> Chùa Long Sơn -> Chiều tắm biển Trần Phú -> Tối ăn hải sản tháp bà.
+- **Ngày 2:** Vui chơi trọn gói tại VinWonders Hòn Tre (Cáp treo vượt biển, công viên nước, show Tata) -> Tối dạo chợ đêm.
+- **Ngày 3:** Tour lặn biển Hòn Mun / Đảo Yến -> Mua yến sào, nem nướng -> Tiễn khách.
+    """
+}
+
+# Đơn giá tham chiếu vận chuyển
 TRANSPORT_RATES = {
     "Phú Quốc": 1200000, "Đà Nẵng": 1000000, "Hà Nội": 900000, "Sapa": 1500000,
     "Nha Trang": 1100000, "Đà Lạt": 1300000, "Hạ Long": 1200000, "Quy Nhơn": 1200000, "TP. Hồ Chí Minh": 1000000
@@ -104,23 +128,27 @@ TRANSPORT_RATES = {
 GUIDE_RATE = 800000 # HDV/ngày
 MEAL_RATES = {"3 Sao": 150000, "4 Sao": 250000, "5 Sao": 450000} # Tiền ăn/người/bữa
 
+# Khởi tạo session states
 if 'df_hotels' not in st.session_state:
     st.session_state.df_hotels = pd.DataFrame(get_initial_hotels())
 
 if 'df_bookings' not in st.session_state:
     st.session_state.df_bookings = pd.DataFrame([
         {"Mã Đơn": "BK-1001", "Tên Khách": "Anh Minh", "SĐT": "0901234567", "Điểm đến": "Phú Quốc", "Số Khách": 5, "Ngày/Đêm": "4N3Đ", "Khách sạn": "Vinpearl Discovery VIP (5 Sao VIP)", "Tổng Tiền": 52500000, "Trạng thái": "Chờ Giám đốc duyệt", "Ngày đặt": "2026-09-28"},
-        {"Mã Đơn": "BK-1002", "Tên Khách": "Chị Hoa (Tập đoàn FPT)", "SĐT": "0912345678", "Điểm đến": "Sapa", "Số Khách": 12, "Ngày/Đêm": "3N2Đ", "Khách sạn": "Hôtel de la Coupole (5 Sao VIP)", "Tổng Tiền": 118000000, "Trạng thái": "Đã chốt & Cọc", "Ngày đặt": "2026-09-27"},
-        {"Mã Đơn": "BK-1003", "Tên Khách": "Gia đình Anh Tuấn", "SĐT": "0988776655", "Điểm đến": "Đà Lạt", "Số Khách": 4, "Ngày/Đêm": "3N2Đ", "Khách sạn": "Terracotta Hotel & Resort (4 Sao)", "Tổng Tiền": 18500000, "Trạng thái": "Chờ Giám đốc duyệt", "Ngày đặt": "2026-09-28"}
+        {"Mã Đơn": "BK-1002", "Tên Khách": "Chị Hoa (Tập đoàn FPT)", "SĐT": "0912345678", "Điểm đến": "Sapa", "Số Khách": 12, "Ngày/Đêm": "3N2Đ", "Khách sạn": "Hôtel de la Coupole (5 Sao VIP)", "Tổng Tiền": 118000000, "Trạng thái": "Đã chốt & Cọc", "Ngày đặt": "2026-09-27"}
     ])
 
 if 'df_tours' not in st.session_state:
     st.session_state.df_tours = pd.DataFrame([
         {"ID": "T001", "Tên Tour": "Hà Nội - Sapa - Fanxipan 3N2Đ", "Loại": "Nội địa", "Khởi hành": "2026-10-05", "Trạng thái": "Đã đủ chỗ", "Số chỗ": 25, "Đã đặt": 25, "Doanh thu": 105000000, "Chi phí": 78000000},
-        {"ID": "T002", "Tên Tour": "Đà Nẵng - Hội An - Bà Nà 4N3Đ", "Loại": "Nội địa", "Khởi hành": "2026-10-10", "Trạng thái": "Mở bán", "Số chỗ": 30, "Đã đặt": 18, "Doanh thu": 104400000, "Chi phí": 72000000},
-        {"ID": "T003", "Tên Tour": "Nha Trang - Biển Xanh Vẫy Gọi 3N2Đ", "Loại": "Nội địa", "Khởi hành": "2026-10-15", "Trạng thái": "Mở bán", "Số chỗ": 20, "Đã đặt": 12, "Doanh thu": 68000000, "Chi phí": 48000000},
-        {"ID": "T004", "Tên Tour": "Bangkok - Pattaya (Thái Lan) 5N4Đ", "Loại": "Outbound", "Khởi hành": "2026-10-12", "Trạng thái": "Mở bán", "Số chỗ": 20, "Đã đặt": 15, "Doanh thu": 133500000, "Chi phí": 95000000}
+        {"ID": "T002", "Tên Tour": "Đà Nẵng - Hội An - Bà Nà 4N3Đ", "Loại": "Nội địa", "Khởi hành": "2026-10-10", "Trạng thái": "Mở bán", "Số chỗ": 30, "Đã đặt": 18, "Doanh thu": 104400000, "Chi phí": 72000000}
     ])
+
+# Khởi tạo lịch sử Chatbot
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = [
+        {"role": "assistant", "content": "Xin chào! Tôi là Trợ lý ảo tư vấn tour Viet Travel 🤖.\n\nBạn muốn tìm hiểu lịch trình du lịch ở đâu (Sapa, Phú Quốc, Đà Nẵng, Đà Lạt, Hạ Long, Nha Trang...) hoặc có thắc mắc gì về dịch vụ không ạ?"}
+    ]
 
 # ==========================================
 # 3. THANH ĐIỀU HƯỚNG CHÍNH (SIDEBAR)
@@ -131,7 +159,7 @@ with st.sidebar:
     
     app_mode = st.radio(
         "🔀 CHỌN CHẾ ĐỘ SỬ DỤNG:",
-        ["🌟 CỔNG ĐẶT TOUR (Dành cho Khách)", "👔 HỆ THỐNG QUẢN TRỊ (Dành cho CEO)"],
+        ["🌟 CỔNG ĐẶT TOUR (Dành cho Khách)", "💬 CHATBOT TƯ VẤN LỊCH TRÌNH", "👔 HỆ THỐNG QUẢN TRỊ (Dành cho CEO)"],
         index=0
     )
     
@@ -153,7 +181,10 @@ with st.sidebar:
 # 4. KHU VỰC HIỂN THỊ NỘI DUNG CHÍNH
 # ==========================================
 
-if "Khách" in app_mode:
+# ------------------------------------------
+# CHẾ ĐỘ 1: CỔNG ĐẶT TOUR
+# ------------------------------------------
+if "CỔNG ĐẶT TOUR" in app_mode:
     st.markdown('<div class="main-title">🏖️ ĐẶT TOUR DU LỊCH THIẾT KẾ THEO YÊU CẦU CỦA BẠN</div>', unsafe_allow_html=True)
     st.caption("Hãy tự do thiết kế chuyến đi hoàn hảo của bạn. Hệ thống sẽ tự động tính toán chi phí minh bạch tức thì!")
 
@@ -162,7 +193,6 @@ if "Khách" in app_mode:
     with c_left:
         st.subheader("1. Thông tin Chuyến đi & Nhu cầu")
         
-        # Lấy danh sách địa điểm động từ dữ liệu khách sạn
         available_locations = sorted(list(st.session_state.df_hotels["Địa điểm"].unique()))
 
         col_a, col_b = st.columns(2)
@@ -176,7 +206,6 @@ if "Khách" in app_mode:
             star_rating = st.selectbox("⭐ Hạng Khách sạn mong muốn", ["5 Sao", "4 Sao", "3 Sao"])
             room_type = st.selectbox("🛏️ Loại phòng", ["Standard", "VIP / Suite"])
 
-            # Lọc khách sạn theo lựa chọn
             hotels_df = st.session_state.df_hotels
             matched_hotels = hotels_df[
                 (hotels_df["Địa điểm"] == destination) & 
@@ -257,6 +286,91 @@ if "Khách" in app_mode:
                     st.balloons()
                     st.success("🎉 Đặt tour thành công! Đội ngũ Điều hành sẽ liên hệ xác nhận trong vòng 15 phút.")
 
+# ------------------------------------------
+# CHẾ ĐỘ 2: CHATBOT TƯ VẤN LỊCH TRÌNH
+# ------------------------------------------
+elif "CHATBOT" in app_mode:
+    st.markdown('<div class="main-title">💬 CHATBOT HỎI ĐÁP & TƯ VẤN LỊCH TRÌNH DU LỊCH</div>', unsafe_allow_html=True)
+    st.caption("Trợ lý AI sẵn sàng giải đáp thắc mắc về địa điểm, lịch trình chi tiết và chi phí dự kiến 24/7.")
+
+    # Nút bấm gợi ý câu hỏi nhanh
+    st.write("💡 **Gợi ý câu hỏi nhanh:**")
+    quick_cols = st.columns(4)
+    quick_q = None
+    if quick_cols[0].button("📍 Lịch trình Sapa"):
+        quick_q = "Gợi ý lịch trình tour Sapa"
+    if quick_cols[1].button("🏖️ Lịch trình Phú Quốc"):
+        quick_q = "Cho tôi lịch trình đi Phú Quốc"
+    if quick_cols[2].button("🌉 Lịch trình Đà Nẵng"):
+        quick_q = "Tư vấn tour Đà Nẵng"
+    if quick_cols[3].button("🌲 Lịch trình Đà Lạt"):
+        quick_q = "Lịch trình đi Đà Lạt thế nào?"
+
+    st.divider()
+
+    # Hiển thị lịch sử chat
+    for message in st.session_state.chat_history:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    # Xử lý khi có câu hỏi mới (từ ô nhập hoặc nút bấm)
+    user_input = st.chat_input("Nhập thắc mắc của bạn về lịch trình tour tại đây...")
+    prompt = user_input or quick_q
+
+    if prompt:
+        # Hiển thị tin nhắn người dùng
+        st.session_state.chat_history.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+        # Thuật toán tư vấn trả lời tự động của Chatbot
+        prompt_lower = prompt.lower()
+        response = ""
+
+        # Kiểm tra từ khóa địa điểm
+        found_destination = False
+        for loc_key, itinerary in ITINERARY_DATABASE.items():
+            if loc_key in prompt_lower:
+                response = f"Dưới đây là gợi ý lịch trình chi tiết cho chuyến đi **{loc_key.upper()}** của bạn:\n" + itinerary
+                response += "\n\n👉 Bạn có thể chuyển sang tab **'CỔNG ĐẶT TOUR'** ở thanh bên trái để tự chọn số người, số ngày và nhận báo giá trọn gói tự động nhé!"
+                found_destination = True
+                break
+
+        if not found_destination:
+            if "giá" in prompt_lower or "chi phí" in prompt_lower or "tiền" in prompt_lower:
+                response = """
+💰 **Thông tin chi phí Tour:**
+- Giá tour được tự động tính toán dựa trên: **Số lượng người**, **Số ngày đêm**, **Hạng khách sạn (3-5 sao)** và **Các dịch vụ chọn thêm** (Xe đưa đón, HDV, Ăn uống).
+- Báo giá minh bạch bao gồm chi phí Net và ưu đãi định mức.
+- Bạn vui lòng vào tab **'CỔNG ĐẶT TOUR'** chọn các tùy chọn để xem bảng giá chính xác nhất!
+                """
+            elif "khách sạn" in prompt_lower or "phòng" in prompt_lower:
+                response = "🏨 Viet Travel hợp tác với hơn 30+ hệ thống khách sạn/resort hàng đầu Việt Nam như Vinpearl, InterContinental, Novotel, Silk Path, FLC... từ 3 sao đến 5 sao VIP."
+            elif "xin chào" in prompt_lower or "chào" in prompt_lower or "hi" in prompt_lower:
+                response = "Xin chào bạn! Tôi có thể giúp gì cho chuyến du lịch sắp tới của bạn? Bạn muốn tham khảo lịch trình Sapa, Phú Quốc, Đà Nẵng, Đà Lạt hay địa điểm nào khác?"
+            else:
+                response = f"""
+Cảm ơn bạn đã đặt câu hỏi: *"{prompt}"*.
+
+Dưới đây là một số địa điểm nổi tiếng Viet Travel có sẵn lịch trình chi tiết:
+- 🏔️ **Sapa** (3N2Đ - Cáp treo Fansipan, Bản Cát Cát)
+- 🏖️ **Phú Quốc** (4N3Đ - Tour 4 Đảo, VinWonders, Safari)
+- 🌉 **Đà Nẵng** (3N2Đ - Bà Nà Hills, Hội An)
+- 🌲 **Đà Lạt** (3N2Đ - Quảng trường Lâm Viên, Langbiang)
+- 🚢 **Hạ Long** (2N1Đ - Du thuyền Vịnh Hạ Long)
+- 🏖️ **Nha Trang** (3N2Đ - VinWonders, Tour Đảo)
+
+Bạn hãy nhập tên địa điểm muốn đi để tôi gửi lịch trình gợi ý nhé!
+                """
+
+        # Hiển thị phản hồi từ Chatbot
+        with st.chat_message("assistant"):
+            st.markdown(response)
+        st.session_state.chat_history.append({"role": "assistant", "content": response})
+
+# ------------------------------------------
+# CHẾ ĐỘ 3: QUẢN TRỊ CEO
+# ------------------------------------------
 else:
     if ceo_menu == "📊 Dashboard Điều hành CEO":
         st.markdown('<div class="main-title">👔 EXECUTIVE DASHBOARD - BÁO CÁO BÀN GIÁO QUẢN TRỊ</div>', unsafe_allow_html=True)
@@ -313,7 +427,6 @@ else:
     elif ceo_menu == "🏨 Quản lý Khách sạn Partner":
         st.markdown('<div class="main-title">🏨 QUẢN LÝ DANH MỤC KHÁCH SẠN PARTNER</div>', unsafe_allow_html=True)
         
-        # Bộ lọc danh sách khách sạn
         col_filter1, col_filter2 = st.columns(2)
         with col_filter1:
             loc_filter = st.multiselect("Lọc theo Địa điểm", options=st.session_state.df_hotels["Địa điểm"].unique(), default=st.session_state.df_hotels["Địa điểm"].unique())
