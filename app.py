@@ -159,7 +159,7 @@ if 'df_tours' not in st.session_state:
         {"ID": "T002", "Tên Tour": "Đà Nẵng - Hội An - Bà Nà 4N3Đ", "Loại": "Nội địa", "Khởi hành": "2026-10-10", "Trạng thái": "Mở bán", "Số chỗ": 30, "Đã đặt": 18, "Doanh thu": 104400000, "Chi phí": 72000000}
     ])
 
-# BỔ SUNG 10 HƯỚNG DẪN VIÊN VÀ ĐẦY ĐỦ THÔNG TIN CÁ NHÂN, MÃ THẺ, NGÔN NGỮ, LỊCH TRỰC
+# 13 HƯỚNG DẪN VIÊN VÀ NHÂN SỰ
 if 'df_staff' not in st.session_state:
     st.session_state.df_staff = pd.DataFrame([
         {
@@ -180,7 +180,6 @@ if 'df_staff' not in st.session_state:
             "Ngôn ngữ": "Tiếng Anh, Tiếng Hàn", "Tuyến đường chính": "Phú Quốc, Nha Trang, Đà Lạt",
             "Kinh nghiệm": "10 năm", "Trạng thái": "Sẵn sàng nhận tour", "Lịch trực / Phân công": "Trực hotline hỗ trợ khách"
         },
-        # --- BỔ SUNG 10 HDV MỚI TỪ HDV-04 ĐẾN HDV-13 ---
         {
             "Mã NV": "HDV-04", "Họ và Tên": "Phạm Thị Hương", "Ngày sinh": "05/02/1992", "CCCD": "001192003344",
             "Chức danh": "HDV Quốc tế", "SĐT": "0971223344", "Loại thẻ": "Quốc tế", "Mã số thẻ HDV": "101170112",
@@ -241,8 +240,6 @@ if 'df_staff' not in st.session_state:
             "Ngôn ngữ": "Tiếng Ý, Tiếng Anh", "Tuyến đường chính": "Hà Nội, Hạ Long, Ninh Bình",
             "Kinh nghiệm": "4 năm", "Trạng thái": "Sẵn sàng nhận tour", "Lịch trực / Phân công": "Trực văn phòng (T2-T6)"
         },
-
-        # --- ĐIỀU HÀNH TOUR ---
         {
             "Mã NV": "DH-01", "Họ và Tên": "Phạm Quốc Bảo", "Ngày sinh": "11/04/1991", "CCCD": "001191008899",
             "Chức danh": "Chuyên viên Điều hành Tour", "SĐT": "0977889900", "Loại thẻ": "Không", "Mã số thẻ HDV": "Không",
@@ -271,6 +268,7 @@ with st.sidebar:
 
     st.divider()
 
+    ceo_menu = None
     if "CEO" in app_mode:
         ceo_menu = st.selectbox(
             "DANH MỤC QUẢN TRỊ:",
@@ -371,8 +369,6 @@ if "CỔNG ĐẶT TOUR" in app_mode:
         st.subheader("4. Báo Giá Chuyến Đi Chi Tiết")
 
         effective_pax_services = pax_adult + (pax_child_5_12 * 0.5)
-        total_people_count = pax_adult + pax_child_5_12 + pax_child_under_5
-
         rooms_needed = math.ceil((pax_adult + (pax_child_5_12 * 0.5)) / 2)
         seasonal_multiplier = 1.20 if is_peak else 1.0
 
@@ -591,9 +587,6 @@ else:
                         st.success(f"Đã cập nhật trạng thái đơn {row['Mã Đơn']} thành '{new_status}'!")
                         st.rerun()
 
-    # =========================================================================
-    # CẬP NHẬT GIAO DIỆN QUẢN LÝ NHÂN SỰ & HDV VỚI ĐẦY ĐỦ CÁC TRƯỜNG THÔNG TIN
-    # =========================================================================
     elif ceo_menu == "👨‍💼 Quản lý Nhân sự & HDV":
         st.markdown('<div class="main-title">👨‍💼 QUẢN LÝ DANH SÁCH NHÂN SỰ & HƯỚNG DẪN VIÊN</div>', unsafe_allow_html=True)
 
@@ -678,3 +671,137 @@ else:
                     st.session_state.df_staff = pd.concat([st.session_state.df_staff, pd.DataFrame([new_staff])], ignore_index=True)
                     st.success(f"🎉 Đã thêm thành công HDV/Nhân viên **{st_name}** vào hệ thống!")
                     st.rerun()
+
+    # BỔ SUNG: QUẢN LÝ KHÁCH SẠN PARTNER
+    elif ceo_menu == "🏨 Quản lý Khách sạn Partner":
+        st.markdown('<div class="main-title">🏨 QUẢN LÝ DANH SÁCH KHÁCH SẠN PARTNER</div>', unsafe_allow_html=True)
+        
+        df_h = st.session_state.df_hotels
+
+        # Thống kê nhanh
+        m1, m2, m3 = st.columns(3)
+        m1.metric("Tổng Số Khách Sạn Partner", f"{len(df_h)} Khách sạn")
+        m2.metric("Số Tỉnh/Thành Khai Thác", f"{df_h['Địa điểm'].nunique()} Địa điểm")
+        m3.metric("Số Partner 5 Sao", f"{len(df_h[df_h['Hạng'] == '5 Sao'])} Khách sạn")
+
+        st.divider()
+
+        # Bộ lọc
+        f_col1, f_col2 = st.columns(2)
+        with f_col1:
+            loc_filter = st.multiselect("Lọc theo Địa điểm", options=sorted(list(df_h["Địa điểm"].unique())), default=list(df_h["Địa điểm"].unique()))
+        with f_col2:
+            star_filter = st.multiselect("Lọc theo Hạng sao", options=sorted(list(df_h["Hạng"].unique())), default=list(df_h["Hạng"].unique()))
+
+        filtered_hotels = df_h[(df_h["Địa điểm"].isin(loc_filter)) & (df_h["Hạng"].isin(star_filter))]
+
+        st.dataframe(filtered_hotels, use_container_width=True, hide_index=True)
+
+        st.divider()
+        st.subheader("➕ Thêm Khách Sạn Partner Mới")
+        with st.form("add_hotel_form"):
+            h1, h2 = st.columns(2)
+            with h1:
+                h_name = st.text_input("Tên Khách Sạn / Resort*")
+                h_loc = st.text_input("Địa điểm (Thành phố/Tỉnh)*", placeholder="Ví dụ: Quy Nhơn, Huế...")
+                h_star = st.selectbox("Hạng sao", ["5 Sao", "4 Sao", "3 Sao"])
+            with h2:
+                h_type = st.selectbox("Loại phòng", ["Standard", "VIP / Suite"])
+                h_price = st.number_input("Giá phòng / đêm (VNĐ)*", min_value=100000, value=2000000, step=100000)
+
+            btn_add_hotel = st.form_submit_button("💾 Thêm Khách Sạn Mới")
+            if btn_add_hotel:
+                if not h_name or not h_loc:
+                    st.error("Vui lòng điền đầy đủ Tên khách sạn và Địa điểm!")
+                else:
+                    new_code = f"H{len(df_h)+1:03d}"
+                    new_hotel = {
+                        "Mã HS": new_code,
+                        "Tên Khách Sạn": h_name,
+                        "Địa điểm": h_loc,
+                        "Hạng": h_star,
+                        "Loại phòng": h_type,
+                        "Giá/Phòng/Đêm": h_price
+                    }
+                    st.session_state.df_hotels = pd.concat([st.session_state.df_hotels, pd.DataFrame([new_hotel])], ignore_index=True)
+                    st.success(f"🎉 Đã thêm khách sạn **{h_name}** thành công!")
+                    st.rerun()
+
+    # BỔ SUNG: QUẢN LÝ TOUR & VẬN HÀNH
+    elif ceo_menu == "🗺️ Quản lý Tour & Vận hành":
+        st.markdown('<div class="main-title">🗺️ QUẢN LÝ DANH SÁCH TOUR & VẬN HÀNH GHÉP ĐOÀN</div>', unsafe_allow_html=True)
+        
+        df_t = st.session_state.df_tours
+        st.dataframe(df_t, use_container_width=True, hide_index=True)
+
+        st.divider()
+        st.subheader("➕ Mở Bán Tour Khởi Hành Định Kỳ Mới")
+        with st.form("add_tour_form"):
+            t1, t2 = st.columns(2)
+            with t1:
+                t_name = st.text_input("Tên Tour Khởi Hành*")
+                t_type = st.selectbox("Loại Tour", ["Nội địa", "Quốc tế"])
+                t_date = st.date_input("Ngày Khởi hành", value=date.today())
+                t_seats = st.number_input("Tổng số chỗ nhận khách", min_value=1, value=30)
+            with t2:
+                t_booked = st.number_input("Số chỗ đã đặt", min_value=0, value=0)
+                t_rev = st.number_input("Doanh thu dự kiến/thực tế (VNĐ)", min_value=0, value=0, step=1000000)
+                t_cost = st.number_input("Chi phí vận hành dự kiến (VNĐ)", min_value=0, value=0, step=1000000)
+                t_status = st.selectbox("Trạng thái Tour", ["Mở bán", "Sắp khởi hành", "Đã đủ chỗ", "Đã hoàn thành"])
+
+            btn_add_tour = st.form_submit_button("💾 Lưu Thông Tin Tour Mới")
+            if btn_add_tour:
+                if not t_name:
+                    st.error("Vui lòng nhập tên tour!")
+                else:
+                    new_id = f"T{len(df_t)+1:03d}"
+                    new_tour = {
+                        "ID": new_id,
+                        "Tên Tour": t_name,
+                        "Loại": t_type,
+                        "Khởi hành": str(t_date),
+                        "Trạng thái": t_status,
+                        "Số chỗ": t_seats,
+                        "Đã đặt": t_booked,
+                        "Doanh thu": t_rev,
+                        "Chi phí": t_cost
+                    }
+                    st.session_state.df_tours = pd.concat([st.session_state.df_tours, pd.DataFrame([new_tour])], ignore_index=True)
+                    st.success(f"🎉 Đã tạo mới tour **{t_name}** thành công!")
+                    st.rerun()
+
+    # BỔ SUNG: BÁO CÁO TÀI CHÍNH
+    elif ceo_menu == "💰 Báo cáo Tài chính":
+        st.markdown('<div class="main-title">💰 BÁO CÁO TÀI CHÍNH & LỢI NHUẬN TỔNG HỢP</div>', unsafe_allow_html=True)
+        
+        df_b = st.session_state.df_bookings
+        df_t = st.session_state.df_tours
+
+        rev_custom = df_b[df_b["Trạng thái"] != "Hủy đơn"]["Tổng Tiền"].sum()
+        cost_custom = rev_custom * 0.8  # Giả định chi phí vốn 80% (Margin 20%)
+        profit_custom = rev_custom - cost_custom
+
+        rev_tours = df_t["Doanh thu"].sum()
+        cost_tours = df_t["Chi phí"].sum()
+        profit_tours = rev_tours - cost_tours
+
+        total_rev = rev_custom + rev_tours
+        total_cost = cost_custom + cost_tours
+        total_profit = profit_custom + profit_tours
+
+        r1, r2, r3 = st.columns(3)
+        r1.metric("TỔNG DOANH THU", f"{total_rev:,.0f} VNĐ")
+        r2.metric("TỔNG CHI PHÍ VỐN", f"{total_cost:,.0f} VNĐ")
+        r3.metric("LỢI NHUẬN RÒNG (NET)", f"{total_profit:,.0f} VNĐ", delta=f"{(total_profit/total_rev*100) if total_rev > 0 else 0:.1f}% Margin")
+
+        st.divider()
+
+        fin_data = pd.DataFrame({
+            "Mảng kinh doanh": ["Tour Thiết Kế (Khách lẻ/Đoàn)", "Tour Ghép Định Kỳ"],
+            "Doanh thu (VNĐ)": [rev_custom, rev_tours],
+            "Chi phí (VNĐ)": [cost_custom, cost_tours],
+            "Lợi nhuận (VNĐ)": [profit_custom, profit_tours]
+        })
+
+        st.subheader("📊 Bảng Bóc Tách Hiệu Quả Kinh Doanh theo Mảng Dịch Vụ")
+        st.dataframe(fin_data, use_container_width=True, hide_index=True)
