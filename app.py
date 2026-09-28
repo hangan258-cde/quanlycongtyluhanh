@@ -36,7 +36,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 2. KHỞI TẠO DỮ LIỆU ĐỊA ĐIỂM & KHÁCH SẠN
+# 2. KHỞI TẠO DỮ LIỆU BAN ĐẦU
 # ==========================================
 @st.cache_data
 def get_initial_hotels():
@@ -144,6 +144,15 @@ if 'df_tours' not in st.session_state:
         {"ID": "T002", "Tên Tour": "Đà Nẵng - Hội An - Bà Nà 4N3Đ", "Loại": "Nội địa", "Khởi hành": "2026-10-10", "Trạng thái": "Mở bán", "Số chỗ": 30, "Đã đặt": 18, "Doanh thu": 104400000, "Chi phí": 72000000}
     ])
 
+# Khởi tạo dữ liệu Quản lý Nhân sự & HDV
+if 'df_staff' not in st.session_state:
+    st.session_state.df_staff = pd.DataFrame([
+        {"Mã NV": "HDV-01", "Họ và Tên": "Nguyễn Văn Tuấn", "Chức danh": "HDV Quốc tế", "SĐT": "0908112233", "Thẻ HDV": "Nội địa & Quốc tế", "Tuyến đường chính": "Sapa, Hà Nội, Hạ Long", "Ngoại ngữ": "Tiếng Anh, Tiếng Trung", "Trạng thái": "Sẵn sàng nhận tour"},
+        {"Mã NV": "HDV-02", "Họ và Tên": "Lê Thị Mai", "Chức danh": "HDV Nội địa", "SĐT": "0918334455", "Thẻ HDV": "Nội địa", "Tuyến đường chính": "Đà Nẵng, Hội An, Huế", "Ngoại ngữ": "Tiếng Anh", "Trạng thái": "Đang đi tour (T001)"},
+        {"Mã NV": "HDV-03", "Họ và Tên": "Trần Hoàng Nam", "Chức danh": "HDV Quốc tế", "SĐT": "0938556677", "Thẻ HDV": "Nội địa & Quốc tế", "Tuyến đường chính": "Phú Quốc, Nha Trang, Đà Lạt", "Ngoại ngữ": "Tiếng Anh, Tiếng Hàn", "Trạng thái": "Sẵn sàng nhận tour"},
+        {"Mã NV": "DH-01", "Họ và Tên": "Phạm Quốc Bảo", "Chức danh": "Chuyên viên Điều hành Tour", "SĐT": "0977889900", "Thẻ HDV": "Không", "Tuyến đường chính": "Toàn quốc", "Ngoại ngữ": "Tiếng Anh", "Trạng thái": "Đang làm việc"}
+    ])
+
 # Khởi tạo lịch sử Chatbot
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
@@ -171,6 +180,7 @@ with st.sidebar:
             [
                 "📊 Dashboard Điều hành CEO",
                 "📥 Tiếp nhận & Duyệt Đơn đặt",
+                "👨‍💼 Quản lý Nhân sự & HDV",
                 "🏨 Quản lý Khách sạn Partner",
                 "🗺️ Quản lý Tour & Vận hành",
                 "💰 Báo cáo Tài chính"
@@ -293,7 +303,6 @@ elif "CHATBOT" in app_mode:
     st.markdown('<div class="main-title">💬 CHATBOT HỎI ĐÁP & TƯ VẤN LỊCH TRÌNH DU LỊCH</div>', unsafe_allow_html=True)
     st.caption("Trợ lý AI sẵn sàng giải đáp thắc mắc về địa điểm, lịch trình chi tiết và chi phí dự kiến 24/7.")
 
-    # Nút bấm gợi ý câu hỏi nhanh
     st.write("💡 **Gợi ý câu hỏi nhanh:**")
     quick_cols = st.columns(4)
     quick_q = None
@@ -308,26 +317,21 @@ elif "CHATBOT" in app_mode:
 
     st.divider()
 
-    # Hiển thị lịch sử chat
     for message in st.session_state.chat_history:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    # Xử lý khi có câu hỏi mới (từ ô nhập hoặc nút bấm)
     user_input = st.chat_input("Nhập thắc mắc của bạn về lịch trình tour tại đây...")
     prompt = user_input or quick_q
 
     if prompt:
-        # Hiển thị tin nhắn người dùng
         st.session_state.chat_history.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
 
-        # Thuật toán tư vấn trả lời tự động của Chatbot
         prompt_lower = prompt.lower()
         response = ""
 
-        # Kiểm tra từ khóa địa điểm
         found_destination = False
         for loc_key, itinerary in ITINERARY_DATABASE.items():
             if loc_key in prompt_lower:
@@ -363,7 +367,6 @@ Dưới đây là một số địa điểm nổi tiếng Viet Travel có sẵn 
 Bạn hãy nhập tên địa điểm muốn đi để tôi gửi lịch trình gợi ý nhé!
                 """
 
-        # Hiển thị phản hồi từ Chatbot
         with st.chat_message("assistant"):
             st.markdown(response)
         st.session_state.chat_history.append({"role": "assistant", "content": response})
@@ -423,6 +426,66 @@ else:
                         st.session_state.df_bookings.at[idx, "Trạng thái"] = new_status
                         st.success(f"Đã cập nhật trạng thái đơn {row['Mã Đơn']} thành '{new_status}'!")
                         st.rerun()
+
+    # ------------------------------------------
+    # CHỨC NĂNG MỚI: QUẢN LÝ NHÂN SỰ & HDV
+    # ------------------------------------------
+    elif ceo_menu == "👨‍💼 Quản lý Nhân sự & HDV":
+        st.markdown('<div class="main-title">👨‍💼 QUẢN LÝ DANH SÁCH NHÂN SỰ & HƯỚNG DẪN VIÊN</div>', unsafe_allow_html=True)
+        
+        # Thống kê nhanh
+        df_s = st.session_state.df_staff
+        c_hdv1, c_hdv2, c_hdv3 = st.columns(3)
+        c_hdv1.metric("TỔNG NHÂN SỰ/HDV", f"{len(df_s)} Người")
+        c_hdv2.metric("HDV Sẵn Sàng Đi Tour", f"{len(df_s[df_s['Trạng thái'] == 'Sẵn sàng nhận tour'])} HDV")
+        c_hdv3.metric("HDV Đang Bận Tour", f"{len(df_s[df_s['Trạng thái'].str.contains('Đang đi tour')])} HDV")
+
+        st.divider()
+
+        # Bộ lọc nhân sự
+        flt_col1, flt_col2 = st.columns(2)
+        with flt_col1:
+            role_filter = st.multiselect("Lọc theo Chức danh", options=df_s["Chức danh"].unique(), default=df_s["Chức danh"].unique())
+        with flt_col2:
+            status_filter = st.multiselect("Lọc theo Trạng thái", options=df_s["Trạng thái"].unique(), default=df_s["Trạng thái"].unique())
+
+        filtered_staff = df_s[(df_s["Chức danh"].isin(role_filter)) & (df_s["Trạng thái"].isin(status_filter))]
+
+        st.dataframe(filtered_staff, use_container_width=True, hide_index=True)
+
+        st.divider()
+        st.subheader("➕ Thêm Nhân Sự / Hướng Dẫn Viên Mới")
+        with st.form("add_staff_form"):
+            s1, s2, s3 = st.columns(3)
+            with s1:
+                st_name = st.text_input("Họ và Tên*")
+                st_phone = st.text_input("Số điện thoại*")
+                st_role = st.selectbox("Chức danh*", ["HDV Quốc tế", "HDV Nội địa", "Chuyên viên Điều hành Tour", "NV Kinh doanh"])
+            with s2:
+                st_card = st.selectbox("Thẻ HDV", ["Nội địa & Quốc tế", "Nội địa", "Không"])
+                st_routes = st.text_input("Tuyến đường chính / Khu vực", placeholder="Ví dụ: Phú Quốc, Nha Trang")
+            with s3:
+                st_lang = st.text_input("Ngoại ngữ", value="Tiếng Anh")
+                st_status = st.selectbox("Trạng thái", ["Sẵn sàng nhận tour", "Đang đi tour", "Đang làm việc", "Nghỉ phép"])
+
+            btn_add_staff = st.form_submit_button("💾 Lưu Nhân Sự Mới")
+            if btn_add_staff:
+                if not st_name or not st_phone:
+                    st.error("Vui lòng điền đầy đủ Họ tên và Số điện thoại!")
+                else:
+                    new_staff = {
+                        "Mã NV": f"NV-0{len(st.session_state.df_staff)+1}",
+                        "Họ và Tên": st_name,
+                        "Chức danh": st_role,
+                        "SĐT": st_phone,
+                        "Thẻ HDV": st_card,
+                        "Tuyến đường chính": st_routes if st_routes else "Chưa phân công",
+                        "Ngoại ngữ": st_lang,
+                        "Trạng thái": st_status
+                    }
+                    st.session_state.df_staff = pd.concat([st.session_state.df_staff, pd.DataFrame([new_staff])], ignore_index=True)
+                    st.success(f"🎉 Đã thêm nhân sự {st_name} vào hệ thống quản lý thành công!")
+                    st.rerun()
 
     elif ceo_menu == "🏨 Quản lý Khách sạn Partner":
         st.markdown('<div class="main-title">🏨 QUẢN LÝ DANH MỤC KHÁCH SẠN PARTNER</div>', unsafe_allow_html=True)
